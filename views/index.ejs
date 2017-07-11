@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+	
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css"/>
+	<link rel="stylesheet" href="bootstrap/js/bootstrap.min.js"/>
+	
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascripts/iotAppMonitorClient.js"></script>
+	
+	<script src="jquery/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	
+    <script>
+
+	// prefix is 'http' or 'mqtt'
+	function initButtons(prefix) {
+		var play = $("#" + prefix + "-play");
+		var stop = $("#" + prefix + "-stop");
+
+		play.attr("disabled", "disabled");
+
+		stop.bind( "click", function() {
+			stop.attr("disabled", "disabled");
+			play.removeAttr("disabled");
+		});
+
+		play.bind( "click", function() {
+			play.attr("disabled", "disabled");
+			stop.removeAttr("disabled");
+		});
+	}
+
+	$( document ).ready(function() {
+		initButtons("http");
+		initButtons("mqtt");
+	});
+
+	function iotAppendMessage(textarea, message) {
+        if (textarea && message) {
+			var t = textarea.val().trim();
+			if (t.length === 0){
+				t = message.trim();
+			} else {
+				t += "\n" + message.trim();
+			}
+            textarea.val(t);
+        }
+    }
+	
+	iotAppMonitorClient.http = function (message) {
+		if ($("#http-play").attr('disabled')){
+			iotAppendMessage($("#HTTPMessages"), message);
+		}
+  	};
+
+	iotAppMonitorClient.mqtt = function (message) {
+		if ($("#mqtt-play").attr('disabled')){
+			iotAppendMessage($("#MQTTMessages"), message);
+		}
+  	};
+  	
+	</script>
+  </head>
+  <body>
+	<div id="container">
+		<div style="width:100%;">
+			<center>
+				<div id="inner-container" style="background-color:rgba(0,0,0,0.1);margin-top:3%;min-height:70%;width:75%;border-radius:8px 8px 8px 8px;">
+					
+					<div id="pg_title" style="width:100%; float:left;">
+						<h2 style="text-align:center;"><span><%= title %></span></h2>
+					</div>
+					
+					<div style="background-color:rgba(0,0,0,0.07); width:96%; margin-left:2%; margin-right:2%; margin-top:2%;
+					border:1px solid rgba(0,0,0,0.1); border-radius:4px 4px 4px 4px;float:left; "><!--HTTP-->
+						<center>
+							<div id="Http_t" style="width:100%; float:left;margin-bottom:1%;margin-top:2%;">
+								<div style="float:left;margin-left:45%;">
+									<h4 style="text-align:center;">HTTP</h4>
+								</div>
+								<div class="btn-group" style="float:left;margin-left:20px;">
+								  <button id="http-play" type="button" class="btn btn-default">Play</button>
+								  <button id="http-stop" type="button" class="btn btn-default">Stop</button>
+								</div>
+							</div>
+						</center>
+
+						<div style="float:left; width:100%;" style="margin-bottom:1%;">
+							<div style="width:96%; margin-left:2%; margin-right:2%; border:1px solid rgba(0,0,0,0.1); 
+							border-radius:4px 4px 4px 4px;float:left; margin-bottom:2.5%;">
+								 <textarea id="HTTPMessages" rows="6" cols="50" type="text" class="form-control" placeholder="" value="" style="max-height:200px;max-width:100%;min-width:100%;"></textarea>
+							</div>
+						</div>
+					</div>
+					
+					<div style="background-color:rgba(0,0,0,0.07); width:96%; margin-left:2%; margin-right:2%; 
+					margin-bottom:2%;border:1px solid rgba(0,0,0,0.1); border-radius:4px 4px 4px 4px;float:left; "><!--HTTP-->
+						<center>
+							<div id="Mqtt_t" style="width:100%; float:left;margin-bottom:1%;margin-top:2%;">
+								<div style="float:left;margin-left:45%;">
+									<h4 style="text-align:center;">MQTT</h4>
+								</div>
+								<div class="btn-group" style="float:left;margin-left:20px;">
+								  <button id="mqtt-play" type="button" class="btn btn-default">Play</button>
+								  <button id="mqtt-stop" type="button" class="btn btn-default">Stop</button>
+								</div>
+							</div>
+						</center>
+
+						<div style="float:left; width:100%;" style="margin-bottom:1%;">
+							<div style="width:96%; margin-left:2%; margin-right:2%; border:1px solid rgba(0,0,0,0.1); 
+							border-radius:4px 4px 4px 4px;float:left; margin-bottom:2.5%;">
+								 <textarea id="MQTTMessages" rows="6" cols="50" type="text" class="form-control" placeholder="" value="" style="max-height:200px;max-width:100%;min-width:100%;"></textarea>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</center>
+		</div>
+	</div><!--end of container-->
+  </body>
+</html>

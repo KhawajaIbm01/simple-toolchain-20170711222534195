@@ -1,16 +1,27 @@
 {
-	"name": "HelloWorldNodeApp",
-	"version": "0.0.1",
+    "name": "esp8266map",
+    "version": "0.0.1",
     "private": true,
-	"scripts": {
-		"start": "node app.js"
-	},
-	"dependencies": {
-		"express": "4.13.x",
-		"cfenv": "1.0.x"
-	},
-	"repository": {},
-	"engines": {
-		"node": "4.2.x"
-	} 
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "express": "~4.9.0",
+        "cfenv": "1.0.x",
+        "body-parser": "~1.8.1",
+        "cookie-parser": "~1.3.3",
+        "morgan": "~1.3.0",
+        "serve-favicon": "~2.1.3",
+        "ejs": "~0.8.5",
+        "cors": "",
+        "underscore": "",
+        "iotclient": "~0.1.4",
+        "socket.io": "~1.2.0",
+        "mqtt": "^0.3.11"
+    },
+    "repository": {},
+    "engines": {
+        "node": "4.2.x"
+    },
+    "description": "A Bluemix application showing devices of different kinds on a map"
 }
