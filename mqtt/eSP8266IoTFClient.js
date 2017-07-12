@@ -14,7 +14,7 @@ eSP8266IoTFClient.onESP8266Disconnected = null;
 
 
 eSP8266IoTFClient.connectToBroker = function(credentials) {	
-    this.iotClient = new iotApplicationClient("esp8266map" + credentials.apiKey, credentials.apiKey, credentials.apiToken, credentials.mqtt_host);    
+    this.iotClient = new iotApplicationClient("appwithdevicemap" + credentials.apiKey, credentials.apiKey, credentials.apiToken, credentials.mqtt_host);    
     //connect to broker
     this.iotClient.connectBroker(credentials.mqtt_u_port);  
     // Subscribe to device status

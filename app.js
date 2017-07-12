@@ -7,15 +7,15 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var routes = require('./routes/index');
 
-var esp8266mapDebug = null;
+var appwithdevicemapDebug = null;
 //require user extentions  
 try {
-	esp8266mapDebug = require("./esp8266mapDebug.js");	
+	appwithdevicemapDebug = require("./appwithdevicemapDebug.js");	
 } catch (e) {
 	try {
-		esp8266mapDebug = require("./_debug.js");			
+		appwithdevicemapDebug = require("./_debug.js");			
 	} catch (e) {
-		console.log("For Debug add _debug.js or esp8266mapDebug.js");
+		console.log("For Debug add _debug.js or appwithdevicemapDebug.js");
 	};	
 }
 
@@ -31,8 +31,8 @@ VCAP_SERVICES = {};
 if(process.env.VCAP_SERVICES)
 	VCAP_SERVICES = JSON.parse(process.env.VCAP_SERVICES);
 //try and get vcap from debug  
-else if (esp8266mapDebug && esp8266mapDebug.VCAP_SERVICES)
-	VCAP_SERVICES = esp8266mapDebug.VCAP_SERVICES;
+else if (appwithdevicemapDebug && appwithdevicemapDebug.VCAP_SERVICES)
+	VCAP_SERVICES = appwithdevicemapDebug.VCAP_SERVICES;
 
 
 
@@ -122,12 +122,12 @@ app.set('port', process.env.VCAP_APP_PORT || 3000);
 
 //require user extensions  
 try {
-	require("./esp8266map.js");	
+	require("./appwithdevicemap.js");	
 } catch (e) {
 	try {
 		require("./_app.js");			
 	} catch (e) {
-		console.log("Failed to load extention files _app.js or esp8266map.js: " + e.message);
+		console.log("Failed to load extention files _app.js or appwithdevicemap.js: " + e.message);
 	};	
 }
 
